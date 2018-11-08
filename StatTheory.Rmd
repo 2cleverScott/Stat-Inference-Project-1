@@ -1,0 +1,65 @@
+---
+title: "Statistical Inference Project Part 1"
+author: "Scott Roberts"
+date: "April 2, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Executive Summary
+
+The purpose of this study is to compare the exponential distribution with the Central Limit Theorem. What we expect to see is that the mean of the exponentials generate will collect around the theoretical mean.
+
+Simulations
+
+The simulations to run are to generate 40 exponentials, take the mean and repeat this in a simulation 1000 times.  We can then visually see the distribution around the mean. The sample mean is close to the theoretical mean of 5.
+
+Figure 1
+```{r rand, echo=TRUE}
+
+
+set.seed(567)
+#The number of simulations
+sim <- 1000
+#Number of exponentials to generate
+vector <- 40
+
+lambda <- .2
+
+#Generate 1000 simulations
+randexp = NULL
+for (i in 1 : sim) randexp = c(randexp, mean(rexp(vector,lambda)))
+```
+The Sample mean v. Theoretical Mean for 1000 simulations show that the sample mean is close to the theoretical mean.
+```{r}
+
+theorymean <- 1/lambda
+theoryvar <- 1/(lambda*sqrt(vector))^2
+#The theoretical mean of the 40 exponentials
+theorymean
+# The Sample Mean
+mean(randexp)
+# The Samle and the Theoretical Variance are also very similar.
+theoryvar
+var(randexp)
+
+###Visually show the normal distribution in two graphs, QQ-Plot and Histogram. 
+qqnorm((randexp))
+qqline(randexp)
+
+hist(randexp, xlab="Mean of the Exponentials", main ="Distribution of a Thousand Simulations")
+abline(v=mean(randexp), col="red")
+
+
+```
+
+Distribution: Based on the above figures the distribution is approximately normal based on the center of the histograms center around the mean of 5. In the Q-Q plot, the curve is almost straight, implying a normal distribution. In the histogram, as the number of sample means increases the distribution becomes more symetrical.
+
+
+
+
+
+
+
